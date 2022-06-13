@@ -4,13 +4,10 @@ const socketio = require("socket.io");
 const cors = require("cors");
 
 const app = express();
+const port = process.env.PORT || 8000;
 app.use(cors());
 const server = http.createServer(app);
-const io = socketio(server, {
-    cors: {
-        origin: '*',
-      }
-});
+const io = socketio(server);
 
 io.on("connection", (socket) => {
     // console.log("Connection was established by", socket.id);
@@ -37,8 +34,7 @@ io.on("connection", (socket) => {
     })
 })
 
-const PORT = process.env.PORT;
 
-server.listen(PORT, () => {
-    console.log(`Server running on ${PORT}`);
+server.listen(port, () => {
+    console.log(`Server running on ${port}`);
 })
