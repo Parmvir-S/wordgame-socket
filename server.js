@@ -7,7 +7,16 @@ const app = express();
 const port = process.env.PORT || 8000;
 app.use(cors());
 const server = http.createServer(app);
-const io = socketio(server);
+const io = socketio(server, {
+    cors: {
+        origin: '*',
+      }
+});
+
+app.get("/", (req, res) => {
+    res.write("Hello");
+    res.end();
+})
 
 io.on("connection", (socket) => {
     // console.log("Connection was established by", socket.id);
